@@ -58,6 +58,13 @@ onMounted(() => {
   timer = setInterval(tick, 1000)
 
   window.addEventListener('scroll', onScroll, { passive: true })
+
+  window.fbq?.('track', 'ViewContent', {
+    content_name: '30 recetas de postres',
+    content_type: 'product',
+    value: precioUsdActual.value,
+    currency: 'USD',
+  })
 })
 
 onBeforeUnmount(() => {
