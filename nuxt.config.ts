@@ -29,8 +29,8 @@ export default defineNuxtConfig({
 
   fonts: {
     families: [
-      { name: 'Fraunces', provider: 'google' },
-      { name: 'Inter', provider: 'google' },
+      { name: 'Liter', provider: 'google' },
+      { name: 'Imperial Script', provider: 'google' },
     ],
   },
 })

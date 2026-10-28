@@ -1,23 +1,57 @@
 @import "tailwindcss";
 
+/* Sistema visual basado en la plantilla Aurelia (Squarespace) */
 @theme {
-  --font-display: "Fraunces", serif;
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Liter", serif;
+  --font-script: "Imperial Script", cursive;
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-button: "Helvetica Neue", Arial, sans-serif;
 
-  --color-brand-50: #fdf4f3;
-  --color-brand-100: #fbe8e5;
-  --color-brand-500: #d9665a;
-  --color-brand-600: #c24d41;
-  --color-brand-900: #4a1d18;
-  --color-ink: #1d1a19;
-  --color-cream: #fbf8f5;
+  --color-cream: #fafaf5;
+  --color-ink: #000000;
+  --color-accent: #195880;
+  --color-accent-light: #c6dce6;
+  --color-accent-dark: #34281d;
+
+  --radius-button: 6.4px;
 }
 
 @layer base {
   body {
     @apply bg-cream text-ink font-sans antialiased;
   }
-  h1, h2, h3 {
-    @apply font-display;
+  h1, h2, h3, h4 {
+    @apply font-display font-normal;
+    letter-spacing: -0.06em;
+    line-height: 0.9;
+  }
+  h1 {
+    font-size: clamp(3rem, 8vw, 5.7rem);
+  }
+  h2 {
+    font-size: clamp(2.5rem, 6.5vw, 4.6rem);
+  }
+  h3 {
+    font-size: 1.8rem;
+  }
+  h4 {
+    font-size: 1.2rem;
+  }
+  p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-block rounded-button bg-accent-light px-7 py-4 font-button font-medium text-ink transition-opacity hover:opacity-80;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+  }
+  .script {
+    @apply font-script font-normal;
+    letter-spacing: 0;
+    line-height: 1.2;
   }
 }
