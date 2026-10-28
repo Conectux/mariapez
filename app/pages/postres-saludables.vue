@@ -133,6 +133,12 @@ const incluye = [
   { t: 'Tabla de conservación', d: 'Cuántos días dura cada preparación y cómo guardarla para que siga deliciosa.' },
 ]
 
+// Testimonios REALES (con permiso de cada persona). La sección no aparece mientras esté vacío.
+// foto es opcional: ponla en public/images/ebook/testimonios/ y escribe la ruta, ej. '/images/ebook/testimonios/laura.jpg'
+const testimonios: { nombre: string, ciudad: string, receta: string, texto: string, foto?: string }[] = [
+  // { nombre: 'Laura G.', ciudad: 'Medellín', receta: 'Torta María Luisa', texto: '…', foto: '/images/ebook/testimonios/laura.jpg' },
+]
+
 const preguntas = [
   { p: '¿Cómo recibo el ebook?', r: 'Apenas se confirme tu pago, Hotmart te envía un correo con el acceso para descargar el PDF. Lo puedes leer en el celular, la tablet, el computador o imprimirlo.' },
   { p: '¿Es un libro físico?', r: 'No. Es un ebook en PDF de 74 páginas, totalmente ilustrado. No pagas envío y lo tienes en minutos.' },
@@ -190,12 +196,17 @@ const preguntas = [
 
           <div class="mt-10 flex flex-col items-start gap-3">
             <a :href="checkoutHref" class="btn-pz wiggle w-full sm:w-auto">Quiero mis 30 recetas →</a>
-            <p class="text-sm text-ink/70">
-              <span v-if="enLanzamiento" class="mr-1 text-ink/50 line-through">{{ precioRegular }}</span>
-              <strong class="text-pz-coral">{{ precioActual }}</strong>
-              <template v-if="conversion"> ({{ usd(precioUsdActual) }})</template>
-              · Pago único · Acceso inmediato
-            </p>
+            <div>
+              <p class="flex flex-wrap items-baseline gap-x-3">
+                <span v-if="enLanzamiento" class="text-lg text-ink/50 line-through">{{ precioRegular }}</span>
+                <strong class="font-pz-display text-4xl whitespace-nowrap text-pz-coral md:text-5xl">
+                  {{ precioActual.slice(0, -4) }}<span class="text-[0.45em]"> {{ precioActual.slice(-3) }}</span>
+                </strong>
+              </p>
+              <p class="mt-1 text-sm text-ink/70">
+                <template v-if="conversion">{{ usd(precioUsdActual) }} · </template>Pago único · Acceso inmediato
+              </p>
+            </div>
           </div>
         </div>
 
@@ -322,6 +333,28 @@ const preguntas = [
       </div>
     </section>
 
+    <!-- TESTIMONIOS -->
+    <section v-if="testimonios.length" class="checker px-4 py-20 md:py-28" style="--a: var(--color-pz-lima); --b: var(--color-pz-verde); --s: 48px">
+      <div class="mx-auto max-w-6xl">
+        <div class="mx-auto max-w-2xl rounded-[2rem] bg-pz-crema px-6 py-8 text-center">
+          <p class="script text-4xl text-pz-coral">Lo que dicen quienes ya las prepararon</p>
+          <h2 class="mt-2 text-[clamp(2rem,5vw,3.2rem)] text-pz-verde">«¡Qué torta tan deliciosa!»</h2>
+        </div>
+        <div class="mt-10 columns-1 gap-5 sm:columns-2 lg:columns-3">
+          <figure v-for="(t, i) in testimonios" :key="t.nombre" class="mb-5 break-inside-avoid rounded-3xl bg-pz-crema p-6" :class="i % 2 ? 'rotate-1' : '-rotate-1'">
+            <div v-if="t.foto" class="stamp mb-5 bg-pz-rosa">
+              <NuxtImg :src="t.foto" :alt="`${t.receta} preparada por ${t.nombre}`" width="400" height="400" class="aspect-square w-full object-cover" loading="lazy" />
+            </div>
+            <blockquote class="font-pz-serif text-lg leading-snug italic">«{{ t.texto }}»</blockquote>
+            <figcaption class="mt-4 text-sm">
+              <strong class="text-pz-verde">{{ t.nombre }}</strong> · {{ t.ciudad }}
+              <span class="script block text-xl text-pz-coral">Preparó: {{ t.receta }}</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
     <!-- BENEFICIOS -->
     <section class="bg-pz-rosa px-4 py-20 md:py-28">
       <div class="mx-auto max-w-6xl">
@@ -387,8 +420,8 @@ const preguntas = [
         </div>
 
         <div class="mt-10">
-          <p v-if="enLanzamiento" class="text-lg text-ink/50 line-through">Antes {{ precioRegular }}</p>
-          <p class="font-pz-display text-[clamp(2.4rem,10vw,4.5rem)] leading-tight whitespace-nowrap text-pz-coral">
+          <p v-if="enLanzamiento" class="text-xl text-ink/50 line-through">Antes {{ precioRegular }}</p>
+          <p class="font-pz-display text-[clamp(2.8rem,12vw,6.5rem)] leading-none whitespace-nowrap text-pz-coral">
             {{ precioActual.slice(0, -4) }}<span class="text-[0.4em]"> {{ precioActual.slice(-3) }}</span>
           </p>
           <p class="text-sm text-ink/60">{{ conversion ?? 'Pago único' }}</p>
@@ -470,9 +503,11 @@ const preguntas = [
       <div v-if="mostrarBarra" class="fixed inset-x-0 bottom-0 z-50 flex items-center justify-between gap-3 border-t-4 border-pz-coral bg-pz-crema px-4 py-3 transition-transform md:hidden">
         <div class="leading-tight">
           <p v-if="enLanzamiento" class="text-xs text-ink/50 line-through">{{ precioRegular }}</p>
-          <p class="font-pz-display text-lg text-pz-coral">{{ precioActual }}</p>
+          <p class="font-pz-display text-xl whitespace-nowrap text-pz-coral">
+            {{ precioActual.slice(0, -4) }}<span class="text-[0.55em]"> {{ precioActual.slice(-3) }}</span>
+          </p>
         </div>
-        <a :href="checkoutHref" class="btn-pz px-5 py-3 text-sm">Comprar ahora</a>
+        <a :href="checkoutHref" class="btn-pz px-5 py-3 text-sm whitespace-nowrap">Comprar ahora</a>
       </div>
     </Transition>
   </div>
