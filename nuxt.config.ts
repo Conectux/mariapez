@@ -31,6 +31,11 @@ export default defineNuxtConfig({
     families: [
       { name: 'Liter', provider: 'google' },
       { name: 'Imperial Script', provider: 'google' },
+      // Identidad del ebook de postres (landing)
+      { name: 'Archivo Black', provider: 'google' },
+      { name: 'Caveat Brush', provider: 'google' },
+      { name: 'Fraunces', provider: 'google', weights: ['400 700'], styles: ['normal', 'italic'] },
+      { name: 'DM Sans', provider: 'google', weights: ['400 700'] },
     ],
   },
 })

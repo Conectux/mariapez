@@ -14,6 +14,25 @@
   --color-accent-dark: #34281d;
 
   --radius-button: 6.4px;
+
+  /* Identidad del ebook "30 recetas de postres" (landing de ventas) */
+  --font-pz-display: "Archivo Black", Impact, sans-serif;
+  --font-pz-script: "Caveat Brush", cursive;
+  --font-pz-serif: "Fraunces", Georgia, serif;
+  --font-pz-sans: "DM Sans", system-ui, sans-serif;
+
+  --color-pz-crema: #fff6e8;
+  --color-pz-verde: #1f5a3a;
+  --color-pz-rosa: #eca8d8;
+  --color-pz-rosa-claro: #fbe0ef;
+  --color-pz-coral: #e8532f;
+  --color-pz-azul: #2e4bc6;
+  --color-pz-azul-oscuro: #1c2f86;
+  --color-pz-durazno: #ff9f6e;
+  --color-pz-lima: #c8c62c;
+  --color-pz-lavanda: #a8b0f0;
+  --color-pz-menta: #d1e0a0;
+  --color-pz-vino: #8a2a14;
 }
 
 @layer base {
@@ -54,4 +73,81 @@
     letter-spacing: 0;
     line-height: 1.2;
   }
+}
+
+/* ---------- Landing del ebook de postres ---------- */
+@layer components {
+  .pz {
+    @apply bg-pz-crema font-pz-sans text-ink;
+  }
+  .pz h1, .pz h2, .pz h3 {
+    @apply font-pz-display uppercase;
+    letter-spacing: -0.01em;
+    line-height: 0.98;
+  }
+  .pz .script {
+    @apply font-pz-script normal-case;
+    letter-spacing: 0;
+  }
+
+  /* Fondo de cuadros como en el ebook: usa --a y --b */
+  .checker {
+    --a: var(--color-pz-verde);
+    --b: var(--color-pz-rosa);
+    --s: 44px;
+    background: repeating-conic-gradient(var(--a) 0 25%, var(--b) 0 50%) 0 0 / var(--s) var(--s);
+  }
+
+  /* Marco troquelado tipo estampilla: el color del marco es el background */
+  .stamp {
+    --r: 7px;
+    padding: calc(2.2 * var(--r));
+    mask:
+      radial-gradient(var(--r), #0000 97%, #000) round calc(-1.5 * var(--r)) calc(-1.5 * var(--r)) / calc(3 * var(--r)) calc(3 * var(--r)),
+      linear-gradient(#000 0 0) no-repeat 50% / calc(100% - 3 * var(--r)) calc(100% - 3 * var(--r));
+  }
+
+  .btn-pz {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full bg-pz-coral px-8 py-5 text-center font-pz-display text-lg uppercase text-white transition;
+    box-shadow: 0 6px 0 var(--color-pz-vino);
+  }
+  .btn-pz:hover {
+    transform: translateY(2px);
+    box-shadow: 0 4px 0 var(--color-pz-vino);
+  }
+  .btn-pz:active {
+    transform: translateY(6px);
+    box-shadow: 0 0 0 var(--color-pz-vino);
+  }
+
+  .marquee {
+    animation: marquee var(--dur, 60s) linear infinite;
+  }
+  .marquee-wrap:hover .marquee {
+    animation-play-state: paused;
+  }
+  .wiggle {
+    animation: wiggle 2.8s ease-in-out infinite;
+  }
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee, .wiggle, .float { animation: none; }
+  }
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+@keyframes wiggle {
+  0%, 88%, 100% { transform: rotate(0); }
+  91% { transform: rotate(-3deg) scale(1.03); }
+  94% { transform: rotate(3deg) scale(1.03); }
+  97% { transform: rotate(-1deg); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-12px) rotate(-2deg); }
 }
