@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Fraunces", serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --color-brand-50: #fdf4f3;
+  --color-brand-100: #fbe8e5;
+  --color-brand-500: #d9665a;
+  --color-brand-600: #c24d41;
+  --color-brand-900: #4a1d18;
+  --color-ink: #1d1a19;
+  --color-cream: #fbf8f5;
+}
+
+@layer base {
+  body {
+    @apply bg-cream text-ink font-sans antialiased;
+  }
+  h1, h2, h3 {
+    @apply font-display;
+  }
+}
