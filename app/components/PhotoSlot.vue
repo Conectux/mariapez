@@ -11,7 +11,7 @@ withDefaults(defineProps<{
 
 <template>
   <div class="overflow-hidden" :class="aspect">
-    <NuxtImg v-if="src" :src="src" :alt="alt" class="h-full w-full object-cover" loading="lazy" />
+    <NuxtImg v-if="src" :src="src" :alt="alt" sizes="100vw md:50vw" class="h-full w-full object-cover" loading="lazy" />
     <div v-else class="flex h-full w-full items-center justify-center bg-ink/10 p-6 text-center text-sm text-current opacity-60">
       Foto: {{ alt }}
     </div>

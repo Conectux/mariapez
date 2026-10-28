@@ -277,7 +277,7 @@ const preguntas = [
       <div class="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-[0.9fr_1.1fr] md:gap-16">
         <div class="relative">
           <div class="stamp rotate-[-2deg] bg-pz-coral">
-            <PhotoSlot alt="María José en su cocina" class="bg-pz-crema" />
+            <PhotoSlot src="/images/maria-jose/cocina.png" alt="María José en su cocina" aspect="aspect-[3/4]" class="bg-pz-crema" />
           </div>
           <EbookStarburst class="absolute -right-3 -bottom-6 w-32 bg-pz-rosa text-pz-verde">
             <span class="script px-3 text-xl leading-none">Nunca estudié cocina</span>
