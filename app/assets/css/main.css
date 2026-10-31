@@ -123,8 +123,11 @@
   .marquee {
     animation: marquee var(--dur, 60s) linear infinite;
   }
-  .marquee-wrap:hover .marquee {
-    animation-play-state: paused;
+  /* Solo con mouse: en celular un toque deja el :hover pegado y el carrusel se quedaba quieto */
+  @media (hover: hover) and (pointer: fine) {
+    .marquee-wrap:hover .marquee {
+      animation-play-state: paused;
+    }
   }
   .wiggle {
     animation: wiggle 2.8s ease-in-out infinite;

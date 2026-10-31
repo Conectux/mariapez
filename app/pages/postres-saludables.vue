@@ -249,16 +249,17 @@ const preguntas = [
 
     <!-- Carrusel de postres -->
     <section aria-label="Las 30 recetas" class="marquee-wrap space-y-5 overflow-hidden bg-pz-crema py-10">
-      <div class="marquee flex w-max gap-5" style="--dur: 80s">
-        <figure v-for="(item, i) in [...filaA, ...filaA]" :key="`a${i}`" class="w-48 shrink-0 md:w-60">
+      <!-- Margen en vez de gap: así el -50% de la animación mide justo una vuelta y no salta al reiniciar -->
+      <div class="marquee flex w-max" style="--dur: 80s">
+        <figure v-for="(item, i) in [...filaA, ...filaA]" :key="`a${i}`" class="mr-5 w-48 shrink-0 md:w-60">
           <div class="stamp bg-pz-rosa">
             <NuxtImg :src="item.src" :alt="item.titulo" width="300" height="300" class="aspect-square w-full object-cover" loading="lazy" />
           </div>
           <figcaption class="script mt-1 text-center text-xl text-pz-verde">{{ item.titulo }}</figcaption>
         </figure>
       </div>
-      <div class="marquee flex w-max gap-5 [animation-direction:reverse]" style="--dur: 70s">
-        <figure v-for="(item, i) in [...filaB, ...filaB]" :key="`b${i}`" class="w-48 shrink-0 md:w-60">
+      <div class="marquee flex w-max [animation-direction:reverse]" style="--dur: 70s">
+        <figure v-for="(item, i) in [...filaB, ...filaB]" :key="`b${i}`" class="mr-5 w-48 shrink-0 md:w-60">
           <div class="stamp bg-pz-azul">
             <NuxtImg :src="item.src" :alt="item.titulo" width="300" height="300" class="aspect-square w-full object-cover" loading="lazy" />
           </div>
