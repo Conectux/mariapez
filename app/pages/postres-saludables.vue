@@ -1,9 +1,12 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'landing' })
 
+// Link único de compra: lo usan todos los botones (con los UTM de la visita agregados en onMounted)
+const HOTMART_CHECKOUT_URL = 'https://pay.hotmart.com/Y108221755S?off=1hf87xle&checkoutMode=10'
+
 // ⚠️ Configura aquí la oferta antes de publicar
 const oferta = {
-  checkoutUrl: 'https://pay.hotmart.com/Y108221755S?checkoutMode=10',
+  checkoutUrl: HOTMART_CHECKOUT_URL,
   precioUsd: 9.97,
   // Precio después del lanzamiento: debe ser real, porque se muestra tachado
   precioRegularUsd: 19.97,
@@ -92,7 +95,8 @@ const enMonedaLocal = (i: number) => {
 const precioUsdActual = computed(() => (enLanzamiento.value ? oferta.precioUsd : oferta.precioRegularUsd))
 const precioActual = computed(() => enMonedaLocal(enLanzamiento.value ? 0 : 1) ?? usd(precioUsdActual.value))
 const precioRegular = computed(() => enMonedaLocal(1) ?? usd(oferta.precioRegularUsd))
-const conversion = computed(() => (local.value?.precios.length ? `${usd(precioUsdActual.value)} · aprox. en ${local.value.nombre}` : null))
+// Si la API de tasas falla, el servidor manda el precio en USD ya ajustado: en ese caso no hay conversión que mostrar
+const conversion = computed(() => (local.value?.precios.length && local.value.moneda !== 'USD' ? `${usd(precioUsdActual.value)} · Precio en tu moneda (${local.value.nombre})` : null))
 
 const capitulos = [
   {
@@ -141,9 +145,13 @@ const incluye = [
 ]
 
 // Testimonios REALES (con permiso de cada persona). La sección no aparece mientras esté vacío.
-// foto es opcional: ponla en public/images/ebook/testimonios/ y escribe la ruta, ej. '/images/ebook/testimonios/laura.jpg'
-const testimonios: { nombre: string, ciudad: string, receta: string, texto: string, foto?: string }[] = [
-  // { nombre: 'Laura G.', ciudad: 'Medellín', receta: 'Torta María Luisa', texto: '…', foto: '/images/ebook/testimonios/laura.jpg' },
+// ciudad, receta y foto son opcionales. La foto va en public/images/ebook/testimonios/, ej. '/images/ebook/testimonios/laura.jpg'
+const testimonios: { nombre: string, ciudad?: string, receta?: string, texto: string, foto?: string }[] = [
+  { nombre: 'Laura Marcela Gómez', receta: 'Brownies de chocolate', texto: 'Yo pensé que por ser recetas saludables iban a quedar medio simples jajaja, pero hice los brownies y quedaron demasiado ricos. Hasta mi esposo comió y ni cuenta se dio de que no tenían azúcar añadida 😂' },
+  { nombre: 'Daniela Giraldo', receta: 'Galletas de mantequilla de maní y chocolate', texto: 'Me encantó el libro!! Todo está súper bien explicado. Yo no soy muy buena haciendo postres pero ya hice las galletas de maní y chocolate y me quedaron deliciosas. Voy por la torta de zanahoria 😍' },
+  { nombre: 'Paola Andrea Castaño', texto: 'Estoy tratando de bajarle al azúcar y lo que más me costaba era dejar los postres. Este recetario me cayó perfecto. Ya llevo 3 recetas y me han gustado mucho.' },
+  { nombre: 'Carolina Jaramillo', receta: 'Torta de chocolate', texto: 'Ayer hice la torta de chocolate para compartir con mi familia y les encantó. Mi mamá hasta me pidió la receta jajaja. Lo mejor es que queda húmeda, no como esas tortas saludables que parecen pan seco.' },
+  { nombre: 'Natalia Restrepo', receta: 'Rollitos de canela', texto: 'Al principio dudé si comprarlo porque uno encuentra muchas recetas gratis en internet, pero la verdad me gustó mucho. Las cantidades están claras y no tengo que estar buscando por todas partes qué preparar. Ya hice los rollitos de canela y quedaron buenísimos.' },
 ]
 
 const preguntas = [
@@ -175,34 +183,40 @@ const preguntas = [
     </div>
 
     <!-- HERO -->
-    <section class="checker relative px-4 pt-10 pb-20 md:pt-16 md:pb-28" style="--s: 56px">
-      <div class="mx-auto grid max-w-6xl items-center gap-10 rounded-[2.5rem] bg-pz-crema p-6 shadow-[0_12px_0_rgba(0,0,0,0.12)] md:grid-cols-[1.1fr_0.9fr] md:p-12">
+    <section class="checker relative px-4 pt-5 pb-20 md:pt-16 md:pb-28" style="--s: 56px">
+      <div class="mx-auto grid max-w-6xl items-center gap-10 rounded-[2.5rem] bg-pz-crema p-5 shadow-[0_12px_0_rgba(0,0,0,0.12)] md:grid-cols-[1.1fr_0.9fr] md:p-12">
         <div>
-          <p class="script text-3xl text-pz-coral md:text-4xl">Hola, soy María José y quiero que digas…</p>
-          <h1 class="mt-3 text-[clamp(2.4rem,6.5vw,4.6rem)] text-pz-verde">
+          <p class="script text-[1.7rem] text-pz-coral md:text-4xl">Hola, soy María José y quiero que digas…</p>
+          <h1 class="mt-2 text-[clamp(2.4rem,6.5vw,4.6rem)] text-pz-verde md:mt-3">
             «¡Qué torta tan deliciosa!»
           </h1>
-          <p class="mt-6 max-w-xl font-pz-serif text-xl italic leading-snug md:text-2xl">
-            Y no «está rica para ser saludable». <strong class="font-semibold not-italic">30 postres sin azúcar añadida, sin harina de trigo y sin aceite</strong> que saben a pastelería de verdad.
-          </p>
+          <div class="mt-4 flex items-center gap-4 md:mt-6 md:block">
+            <p class="max-w-xl font-pz-serif text-base italic leading-snug md:text-2xl">
+              Y no «está rica para ser saludable». <strong class="font-semibold not-italic">30 postres sin azúcar añadida, sin harina de trigo y sin aceite</strong> que saben a pastelería de verdad.
+            </p>
+            <!-- Portada en la primera pantalla del celular (en escritorio se ve la grande de la derecha). Misma URL que la grande: se descarga una sola vez -->
+            <div class="stamp w-32 shrink-0 rotate-3 bg-pz-verde shadow-lg md:hidden">
+              <NuxtImg src="/images/ebook/portada.jpg" alt="Portada del ebook 30 recetas de postres saludables y deliciosos" width="600" height="800" format="webp" loading="eager" fetchpriority="high" preload class="block h-auto w-full" />
+            </div>
+          </div>
 
-          <ul class="mt-8 flex flex-wrap gap-3">
-            <li class="rounded-2xl bg-pz-verde px-4 py-2 text-center text-pz-crema">
-              <span class="script block text-2xl leading-none text-pz-durazno">Sin</span>
-              <span class="text-xs font-bold tracking-widest uppercase">azúcar añadida</span>
+          <ul class="mt-5 grid grid-cols-3 gap-2 md:mt-8 md:flex md:flex-wrap md:gap-3">
+            <li class="rounded-2xl bg-pz-verde px-2 py-1.5 text-center leading-tight text-pz-crema md:px-4 md:py-2 md:leading-normal">
+              <span class="script block text-xl leading-none text-pz-durazno md:text-2xl">Sin</span>
+              <span class="block text-[0.65rem] font-bold tracking-wide uppercase md:inline md:text-xs md:tracking-widest">azúcar añadida</span>
             </li>
-            <li class="rounded-2xl bg-pz-azul px-4 py-2 text-center text-pz-crema">
-              <span class="script block text-2xl leading-none text-pz-durazno">Sin</span>
-              <span class="text-xs font-bold tracking-widest uppercase">harina de trigo</span>
+            <li class="rounded-2xl bg-pz-azul px-2 py-1.5 text-center leading-tight text-pz-crema md:px-4 md:py-2 md:leading-normal">
+              <span class="script block text-xl leading-none text-pz-durazno md:text-2xl">Sin</span>
+              <span class="block text-[0.65rem] font-bold tracking-wide uppercase md:inline md:text-xs md:tracking-widest">harina de trigo</span>
             </li>
-            <li class="rounded-2xl bg-pz-coral px-4 py-2 text-center text-pz-crema">
-              <span class="script block text-2xl leading-none text-pz-crema">Sin</span>
-              <span class="text-xs font-bold tracking-widest uppercase">aceite</span>
+            <li class="rounded-2xl bg-pz-coral px-2 py-1.5 text-center leading-tight text-pz-crema md:px-4 md:py-2 md:leading-normal">
+              <span class="script block text-xl leading-none text-pz-crema md:text-2xl">Sin</span>
+              <span class="block text-[0.65rem] font-bold tracking-wide uppercase md:inline md:text-xs md:tracking-widest">aceite</span>
             </li>
           </ul>
 
-          <div class="mt-10 flex flex-col items-start gap-3">
-            <a :href="checkoutHref" class="btn-pz wiggle w-full sm:w-auto">Quiero mis 30 recetas →</a>
+          <div class="mt-6 flex flex-col items-start gap-3 md:mt-10">
+            <a :href="checkoutHref" class="btn-pz wiggle w-full px-5 text-base sm:w-auto md:px-8 md:text-lg">Quiero mis 30 recetas →</a>
             <div>
               <p class="flex flex-wrap items-baseline gap-x-3">
                 <span v-if="enLanzamiento" class="text-lg text-ink/50 line-through">{{ precioRegular }}</span>
@@ -211,16 +225,17 @@ const preguntas = [
                 </strong>
               </p>
               <p class="mt-1 text-sm text-ink/70">
-                <template v-if="conversion">{{ usd(precioUsdActual) }} · </template>Pago único · Acceso inmediato
+                <template v-if="conversion">{{ usd(precioUsdActual) }} · Precio en tu moneda · </template>Pago único · Acceso inmediato
               </p>
+              <p class="mt-1 text-xs text-ink/50">El valor exacto lo confirma Hotmart al pagar.</p>
             </div>
           </div>
         </div>
 
-        <div class="relative mx-auto w-full max-w-sm">
+        <div class="relative mx-auto hidden w-full max-w-sm md:block">
           <div class="float">
             <div class="stamp bg-pz-verde shadow-xl">
-              <NuxtImg src="/images/ebook/portada.jpg" alt="Portada del ebook 30 recetas de postres saludables y deliciosos" width="600" height="800" class="block h-auto w-full" />
+              <NuxtImg src="/images/ebook/portada.jpg" alt="Portada del ebook 30 recetas de postres saludables y deliciosos" width="600" height="800" format="webp" fetchpriority="high" class="block h-auto w-full" />
             </div>
           </div>
           <EbookStarburst class="absolute -top-6 -right-2 w-28 bg-pz-coral text-white md:-right-8 md:w-32">
@@ -340,28 +355,6 @@ const preguntas = [
       </div>
     </section>
 
-    <!-- TESTIMONIOS -->
-    <section v-if="testimonios.length" class="checker px-4 py-20 md:py-28" style="--a: var(--color-pz-lima); --b: var(--color-pz-verde); --s: 48px">
-      <div class="mx-auto max-w-6xl">
-        <div class="mx-auto max-w-2xl rounded-[2rem] bg-pz-crema px-6 py-8 text-center">
-          <p class="script text-4xl text-pz-coral">Lo que dicen quienes ya las prepararon</p>
-          <h2 class="mt-2 text-[clamp(2rem,5vw,3.2rem)] text-pz-verde">«¡Qué torta tan deliciosa!»</h2>
-        </div>
-        <div class="mt-10 columns-1 gap-5 sm:columns-2 lg:columns-3">
-          <figure v-for="(t, i) in testimonios" :key="t.nombre" class="mb-5 break-inside-avoid rounded-3xl bg-pz-crema p-6" :class="i % 2 ? 'rotate-1' : '-rotate-1'">
-            <div v-if="t.foto" class="stamp mb-5 bg-pz-rosa">
-              <NuxtImg :src="t.foto" :alt="`${t.receta} preparada por ${t.nombre}`" width="400" height="400" class="aspect-square w-full object-cover" loading="lazy" />
-            </div>
-            <blockquote class="font-pz-serif text-lg leading-snug italic">«{{ t.texto }}»</blockquote>
-            <figcaption class="mt-4 text-sm">
-              <strong class="text-pz-verde">{{ t.nombre }}</strong> · {{ t.ciudad }}
-              <span class="script block text-xl text-pz-coral">Preparó: {{ t.receta }}</span>
-            </figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-
     <!-- BENEFICIOS -->
     <section class="bg-pz-rosa px-4 py-20 md:py-28">
       <div class="mx-auto max-w-6xl">
@@ -404,6 +397,28 @@ const preguntas = [
       </div>
     </section>
 
+    <!-- TESTIMONIOS -->
+    <section v-if="testimonios.length" class="checker px-4 py-20 md:py-28" style="--a: var(--color-pz-lima); --b: var(--color-pz-verde); --s: 48px">
+      <div class="mx-auto max-w-6xl">
+        <div class="mx-auto max-w-2xl rounded-[2rem] bg-pz-crema px-6 py-8 text-center">
+          <p class="script text-4xl text-pz-coral">«¡Qué torta tan deliciosa!»</p>
+          <h2 class="mt-2 text-[clamp(2rem,5vw,3.2rem)] text-pz-verde">Lo que dicen quienes ya las prepararon</h2>
+        </div>
+        <div class="mt-10 columns-1 gap-5 sm:columns-2 lg:columns-3">
+          <figure v-for="(t, i) in testimonios" :key="t.nombre" class="mb-5 break-inside-avoid rounded-3xl bg-pz-crema p-6" :class="i % 2 ? 'rotate-1' : '-rotate-1'">
+            <div v-if="t.foto" class="stamp mb-5 bg-pz-rosa">
+              <NuxtImg :src="t.foto" :alt="`${t.receta} preparada por ${t.nombre}`" width="400" height="400" class="aspect-square w-full object-cover" loading="lazy" />
+            </div>
+            <blockquote class="font-pz-serif text-lg leading-snug italic">«{{ t.texto }}»</blockquote>
+            <figcaption class="mt-4 text-sm">
+              <strong class="text-pz-verde">{{ t.nombre }}</strong><template v-if="t.ciudad"> · {{ t.ciudad }}</template>
+              <span v-if="t.receta" class="script block text-xl text-pz-coral">Preparó: {{ t.receta }}</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
     <!-- OFERTA -->
     <section id="comprar" class="checker px-4 py-20 md:py-28" style="--a: var(--color-pz-coral); --b: var(--color-pz-crema); --s: 48px">
       <div class="mx-auto max-w-2xl rounded-[2.5rem] bg-pz-crema p-6 text-center shadow-[0_14px_0_rgba(0,0,0,0.15)] md:p-12">
@@ -432,7 +447,7 @@ const preguntas = [
             {{ precioActual.slice(0, -4) }}<span class="text-[0.4em]"> {{ precioActual.slice(-3) }}</span>
           </p>
           <p class="text-sm text-ink/60">{{ conversion ?? 'Pago único' }}</p>
-          <p v-if="conversion" class="mt-1 text-xs text-ink/50">Pago único. El valor exacto en tu moneda lo muestra Hotmart al pagar.</p>
+          <p class="mt-1 text-xs text-ink/50"><template v-if="conversion">Pago único. </template>El valor exacto lo confirma Hotmart al pagar.</p>
         </div>
 
         <a :href="checkoutHref" class="btn-pz wiggle mt-8 w-full">Sí, quiero mis 30 recetas →</a>

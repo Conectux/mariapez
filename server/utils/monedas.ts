@@ -28,3 +28,22 @@ export const obtenerTasas = defineCachedFunction(async () => {
   if (res.result !== 'success') throw new Error('No se pudieron obtener las tasas de cambio')
   return res.rates
 }, { maxAge: 60 * 60 * 6, name: 'tasas-usd', getKey: () => 'latest' })
+
+// Hotmart cobra un poco más que la conversión de la API (usa su propia tasa y suma impuestos).
+// Cada factor = precio del checkout de Hotmart / precio que muestra la página (antes del ajuste).
+// Calibrado el 2026-10-30. Recalíbralo si la diferencia vuelve a aparecer.
+export const AJUSTE_HOTMART: Record<string, number> = {
+  COP: 1.0739, // 33.877 / 31.546
+  // MXN: pendiente,
+  // PEN: pendiente,
+  // CLP: pendiente,
+  default: 1.08,
+}
+
+// Redondea siempre hacia arriba para que la página nunca muestre menos de lo que cobra el checkout:
+// COP y CLP a la centena, USD al centavo y el resto a la unidad
+export function redondearArriba(valor: number, moneda: string) {
+  const paso = ['COP', 'CLP'].includes(moneda) ? 100 : moneda === 'USD' ? 0.01 : 1
+  // El 1e-9 evita que un error de coma flotante (997.0000000001) suba un paso de más
+  return Math.ceil(valor / paso - 1e-9) * paso
+}
