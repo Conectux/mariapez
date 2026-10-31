@@ -154,6 +154,9 @@ const testimonios: { nombre: string, ciudad?: string, receta?: string, texto: st
   { nombre: 'Natalia Restrepo', receta: 'Rollitos de canela', texto: 'Al principio dudé si comprarlo porque uno encuentra muchas recetas gratis en internet, pero la verdad me gustó mucho. Las cantidades están claras y no tengo que estar buscando por todas partes qué preparar. Ya hice los rollitos de canela y quedaron buenísimos.' },
 ]
 
+// Color del círculo con la inicial de cada testimonio, en el mismo orden de la lista
+const coloresInicial = ['bg-pz-verde', 'bg-pz-coral', 'bg-pz-azul', 'bg-pz-vino', 'bg-pz-azul-oscuro']
+
 const preguntas = [
   { p: '¿Cómo recibo el ebook?', r: 'Apenas se confirme tu pago, Hotmart te envía un correo con el acceso para descargar el PDF. Lo puedes leer en el celular, la tablet, el computador o imprimirlo.' },
   { p: '¿Es un libro físico?', r: 'No. Es un ebook en PDF de 74 páginas, totalmente ilustrado. No pagas envío y lo tienes en minutos.' },
@@ -411,9 +414,13 @@ const preguntas = [
               <NuxtImg :src="t.foto" :alt="`${t.receta} preparada por ${t.nombre}`" width="400" height="400" class="aspect-square w-full object-cover" loading="lazy" />
             </div>
             <blockquote class="font-pz-serif text-lg leading-snug italic">«{{ t.texto }}»</blockquote>
-            <figcaption class="mt-4 text-sm">
-              <strong class="text-pz-verde">{{ t.nombre }}</strong><template v-if="t.ciudad"> · {{ t.ciudad }}</template>
-              <span v-if="t.receta" class="script block text-xl text-pz-coral">Preparó: {{ t.receta }}</span>
+            <figcaption class="mt-4 flex items-start gap-3 text-sm">
+              <span aria-hidden="true" class="grid size-11 shrink-0 place-items-center rounded-full font-pz-display text-lg text-pz-crema" :class="coloresInicial[i % coloresInicial.length]">{{ t.nombre[0] }}</span>
+              <div>
+                <span role="img" aria-label="5 de 5 estrellas" class="block text-lg leading-none tracking-wider text-amber-400">★★★★★</span>
+                <strong class="mt-1 block text-pz-verde">{{ t.nombre }}<template v-if="t.ciudad"> · {{ t.ciudad }}</template></strong>
+                <span v-if="t.receta" class="script block text-xl leading-tight text-pz-coral">Preparó: {{ t.receta }}</span>
+              </div>
             </figcaption>
           </figure>
         </div>
