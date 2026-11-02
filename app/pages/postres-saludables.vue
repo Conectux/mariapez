@@ -198,9 +198,7 @@ const preguntas = [
               Y no «está rica para ser saludable». <strong class="font-semibold not-italic">30 postres sin azúcar añadida, sin harina de trigo y sin aceite</strong> que saben a pastelería de verdad.
             </p>
             <!-- Portada en la primera pantalla del celular (en escritorio se ve la grande de la derecha). Misma URL que la grande: se descarga una sola vez -->
-            <div class="stamp w-32 shrink-0 rotate-3 bg-pz-verde shadow-lg md:hidden">
-              <NuxtImg src="/images/ebook/portada.jpg" alt="Portada del ebook 30 recetas de postres saludables y deliciosos" width="600" height="800" format="webp" loading="eager" fetchpriority="high" preload class="block h-auto w-full" />
-            </div>
+            <NuxtImg src="/images/ebook/portada-libro.webp" alt="Portada del ebook 30 recetas de postres saludables y deliciosos" width="412" height="604" format="webp" loading="eager" fetchpriority="high" preload class="block h-auto w-28 shrink-0 drop-shadow-[0_10px_12px_rgba(0,0,0,0.25)] md:hidden" />
           </div>
 
           <ul class="mt-5 grid grid-cols-3 gap-2 md:mt-8 md:flex md:flex-wrap md:gap-3">
@@ -237,9 +235,7 @@ const preguntas = [
 
         <div class="relative mx-auto hidden w-full max-w-sm md:block">
           <div class="float">
-            <div class="stamp bg-pz-verde shadow-xl">
-              <NuxtImg src="/images/ebook/portada.jpg" alt="Portada del ebook 30 recetas de postres saludables y deliciosos" width="600" height="800" format="webp" fetchpriority="high" class="block h-auto w-full" />
-            </div>
+            <NuxtImg src="/images/ebook/portada-libro.webp" alt="Portada del ebook 30 recetas de postres saludables y deliciosos" width="412" height="604" format="webp" fetchpriority="high" class="block h-auto w-full drop-shadow-[0_24px_30px_rgba(0,0,0,0.3)]" />
           </div>
           <EbookStarburst class="absolute -top-6 -right-2 w-28 bg-pz-coral text-white md:-right-8 md:w-32">
             <span class="font-pz-display text-sm leading-tight uppercase">74<br>páginas<br>ilustradas</span>
