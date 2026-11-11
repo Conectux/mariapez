@@ -11,7 +11,7 @@ const oferta = {
   // Precio después del lanzamiento: debe ser real, porque se muestra tachado
   precioRegularUsd: 19.97,
   // Fecha real en que termina el precio de lanzamiento (hora de Colombia)
-  finLanzamiento: '2026-11-10T23:59:59-05:00',
+  finLanzamiento: '2026-12-10T23:59:59-05:00',
   garantiaDias: 7,
 }
 
