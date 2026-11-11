@@ -313,48 +313,6 @@ const preguntas = [
       </div>
     </section>
 
-    <!-- QUÉ INCLUYE -->
-    <section class="checker px-4 py-20 md:py-28" style="--a: var(--color-pz-azul); --b: var(--color-pz-durazno); --s: 48px">
-      <div class="mx-auto max-w-6xl rounded-[2.5rem] bg-pz-crema p-6 md:p-14">
-        <p class="script text-center text-4xl text-pz-coral">Todo lo que vas a preparar</p>
-        <h2 class="mt-2 text-center text-[clamp(2rem,5vw,3.6rem)] text-pz-azul-oscuro">30 recetas en 5 capítulos</h2>
-
-        <div class="mt-12 gap-6 md:columns-2">
-          <article v-for="c in capitulos" :key="c.n" class="mb-6 break-inside-avoid overflow-hidden rounded-3xl bg-white/70">
-            <header class="px-6 py-5" :class="[c.bg, c.text]">
-              <p class="script text-2xl leading-none">Capítulo {{ c.n }}</p>
-              <h3 class="mt-1 text-lg">{{ c.titulo }}</h3>
-            </header>
-            <ol class="divide-y divide-dashed divide-ink/15 px-6 py-3">
-              <li v-for="r in c.recetas" :key="r" class="flex gap-3 py-2.5 text-[0.95rem]">
-                <span class="script w-7 shrink-0 text-xl leading-none text-pz-coral">{{ String(recetas.indexOf(r) + 1).padStart(2, '0') }}</span>
-                {{ r }}
-              </li>
-            </ol>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- POR DENTRO -->
-    <section class="px-4 py-20 md:py-28">
-      <div class="mx-auto max-w-6xl">
-        <p class="script text-center text-4xl text-pz-coral">Mira cómo es por dentro</p>
-        <h2 class="mx-auto mt-2 max-w-3xl text-center text-[clamp(2rem,5vw,3.4rem)] text-pz-verde">Tan bonito que vas a querer imprimirlo</h2>
-        <div class="mt-14 grid items-start gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <figure v-for="(p, i) in [
-            { src: '/images/ebook/paginas/pagina-9.jpg', t: 'Cada receta, paso a paso' },
-            { src: '/images/ebook/paginas/pagina-6.jpg', t: 'Índice por capítulos' },
-            { src: '/images/ebook/paginas/pagina-5.jpg', t: 'Medidas y equivalencias' },
-            { src: '/images/ebook/paginas/pagina-73.jpg', t: 'Cómo conservar cada postre' },
-          ]" :key="p.src" class="transition hover:z-10 hover:scale-105" :class="['rotate-[-2deg]', 'rotate-[1.5deg]', 'rotate-[-1deg]', 'rotate-[2deg]'][i]">
-            <NuxtImg :src="p.src" :alt="p.t" width="400" height="533" class="w-full rounded-lg shadow-[0_10px_30px_rgba(0,0,0,0.15)]" loading="lazy" />
-            <figcaption class="script mt-3 text-center text-2xl text-pz-verde">{{ p.t }}</figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-
     <!-- BENEFICIOS -->
     <section class="bg-pz-rosa px-4 py-20 md:py-28">
       <div class="mx-auto max-w-6xl">
@@ -397,6 +355,73 @@ const preguntas = [
       </div>
     </section>
 
+    <!-- PARA QUIÉN -->
+    <section class="px-4 py-20 md:py-28">
+      <div class="mx-auto grid max-w-5xl gap-6 md:grid-cols-2">
+        <div class="rounded-3xl bg-pz-lima/40 p-8">
+          <h3 class="text-xl text-pz-verde">Este libro es para ti si…</h3>
+          <ul class="mt-5 space-y-3">
+            <li>✓ Te encanta hacer postres y quieres versiones sin azúcar añadida</li>
+            <li>✓ Estás dejando el azúcar pero no quieres dejar los antojos</li>
+            <li>✓ Quieres consentir a tu familia con algo rico y un poco más saludable</li>
+            <li>✓ Cocinas para pocas personas y odias desperdiciar</li>
+            <li>✓ No eres experta, pero te encanta intentar cosas nuevas</li>
+          </ul>
+        </div>
+        <div class="rounded-3xl bg-pz-rosa-claro p-8">
+          <h3 class="text-xl text-pz-vino">No es para ti si…</h3>
+          <ul class="mt-5 space-y-3">
+            <li>✕ Buscas un plan de dieta o recetas para bajar de peso</li>
+            <li>✕ Necesitas recetas bajas en calorías o carbohidratos</li>
+            <li>✕ Esperas un libro físico</li>
+          </ul>
+          <p class="mt-6 text-sm text-ink/70">No soy nutricionista. Si tienes una condición de salud, consulta con un profesional.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUÉ INCLUYE -->
+    <section class="checker px-4 py-20 md:py-28" style="--a: var(--color-pz-azul); --b: var(--color-pz-durazno); --s: 48px">
+      <div class="mx-auto max-w-6xl rounded-[2.5rem] bg-pz-crema p-6 md:p-14">
+        <p class="script text-center text-4xl text-pz-coral">Todo lo que vas a preparar</p>
+        <h2 class="mt-2 text-center text-[clamp(2rem,5vw,3.6rem)] text-pz-azul-oscuro">30 recetas en 5 capítulos</h2>
+
+        <div class="mt-12 gap-6 md:columns-2">
+          <article v-for="c in capitulos" :key="c.n" class="mb-6 break-inside-avoid overflow-hidden rounded-3xl bg-white/70">
+            <header class="px-6 py-5" :class="[c.bg, c.text]">
+              <p class="script text-2xl leading-none">Capítulo {{ c.n }}</p>
+              <h3 class="mt-1 text-lg">{{ c.titulo }}</h3>
+            </header>
+            <ol class="divide-y divide-dashed divide-ink/15 px-6 py-3">
+              <li v-for="r in c.recetas" :key="r" class="flex gap-3 py-2.5 text-[0.95rem]">
+                <span class="script w-7 shrink-0 text-xl leading-none text-pz-coral">{{ String(recetas.indexOf(r) + 1).padStart(2, '0') }}</span>
+                {{ r }}
+              </li>
+            </ol>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- POR DENTRO -->
+    <section class="px-4 py-20 md:py-28">
+      <div class="mx-auto max-w-6xl">
+        <p class="script text-center text-4xl text-pz-coral">Mira cómo es por dentro</p>
+        <h2 class="mx-auto mt-2 max-w-3xl text-center text-[clamp(2rem,5vw,3.4rem)] text-pz-verde">Tan bonito que vas a querer imprimirlo</h2>
+        <div class="mt-14 grid items-start gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <figure v-for="(p, i) in [
+            { src: '/images/ebook/paginas/pagina-9.jpg', t: 'Cada receta, paso a paso' },
+            { src: '/images/ebook/paginas/pagina-6.jpg', t: 'Índice por capítulos' },
+            { src: '/images/ebook/paginas/pagina-5.jpg', t: 'Medidas y equivalencias' },
+            { src: '/images/ebook/paginas/pagina-73.jpg', t: 'Cómo conservar cada postre' },
+          ]" :key="p.src" class="transition hover:z-10 hover:scale-105" :class="['rotate-[-2deg]', 'rotate-[1.5deg]', 'rotate-[-1deg]', 'rotate-[2deg]'][i]">
+            <NuxtImg :src="p.src" :alt="p.t" width="400" height="533" class="w-full rounded-lg shadow-[0_10px_30px_rgba(0,0,0,0.15)]" loading="lazy" />
+            <figcaption class="script mt-3 text-center text-2xl text-pz-verde">{{ p.t }}</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
     <!-- TESTIMONIOS -->
     <section v-if="testimonios.length" class="checker px-4 py-20 md:py-28" style="--a: var(--color-pz-lima); --b: var(--color-pz-verde); --s: 48px">
       <div class="mx-auto max-w-6xl">
@@ -435,16 +460,6 @@ const preguntas = [
           <li class="flex gap-3"><span class="text-pz-verde">✓</span>Acceso inmediato y de por vida</li>
         </ul>
 
-        <div v-if="enLanzamiento && restante !== null" class="mt-10">
-          <p class="text-xs font-bold tracking-[0.3em] text-pz-coral uppercase">El precio de lanzamiento termina en</p>
-          <div class="mt-3 flex justify-center gap-2 md:gap-3">
-            <div v-for="r in reloj" :key="r.unidad" class="w-16 rounded-2xl bg-pz-verde py-3 text-pz-crema md:w-20">
-              <span class="block font-pz-display text-2xl tabular-nums md:text-3xl">{{ r.valor }}</span>
-              <span class="text-xs uppercase">{{ r.unidad }}</span>
-            </div>
-          </div>
-        </div>
-
         <div class="mt-10">
           <p v-if="enLanzamiento" class="text-xl text-ink/50 line-through">Antes {{ precioRegular }}</p>
           <p class="font-pz-display text-[clamp(2.8rem,12vw,6.5rem)] leading-none whitespace-nowrap text-pz-coral">
@@ -465,31 +480,29 @@ const preguntas = [
             <strong>Pruébalo sin riesgo.</strong> Si en {{ oferta.garantiaDias }} días sientes que el libro no es para ti, pides el reembolso desde Hotmart y te devuelven el 100% de tu dinero.
           </p>
         </div>
+
+        <div v-if="enLanzamiento && restante !== null" class="mt-10">
+          <p class="text-xs font-bold tracking-[0.3em] text-pz-coral uppercase">El precio de lanzamiento termina en</p>
+          <div class="mt-3 flex justify-center gap-2 md:gap-3">
+            <div v-for="r in reloj" :key="r.unidad" class="w-16 rounded-2xl bg-pz-verde py-3 text-pz-crema md:w-20">
+              <span class="block font-pz-display text-2xl tabular-nums md:text-3xl">{{ r.valor }}</span>
+              <span class="text-xs uppercase">{{ r.unidad }}</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- PARA QUIÉN -->
-    <section class="px-4 py-20 md:py-28">
-      <div class="mx-auto grid max-w-5xl gap-6 md:grid-cols-2">
-        <div class="rounded-3xl bg-pz-lima/40 p-8">
-          <h3 class="text-xl text-pz-verde">Este libro es para ti si…</h3>
-          <ul class="mt-5 space-y-3">
-            <li>✓ Te encanta hacer postres y quieres versiones sin azúcar añadida</li>
-            <li>✓ Estás dejando el azúcar pero no quieres dejar los antojos</li>
-            <li>✓ Quieres consentir a tu familia con algo rico y un poco más saludable</li>
-            <li>✓ Cocinas para pocas personas y odias desperdiciar</li>
-            <li>✓ No eres experta, pero te encanta intentar cosas nuevas</li>
-          </ul>
-        </div>
-        <div class="rounded-3xl bg-pz-rosa-claro p-8">
-          <h3 class="text-xl text-pz-vino">No es para ti si…</h3>
-          <ul class="mt-5 space-y-3">
-            <li>✕ Buscas un plan de dieta o recetas para bajar de peso</li>
-            <li>✕ Necesitas recetas bajas en calorías o carbohidratos</li>
-            <li>✕ Esperas un libro físico</li>
-          </ul>
-          <p class="mt-6 text-sm text-ink/70">No soy nutricionista. Si tienes una condición de salud, consulta con un profesional.</p>
-        </div>
+    <!-- CIERRE -->
+    <section class="checker px-4 py-20 md:py-28" style="--s: 56px">
+      <div class="mx-auto max-w-3xl rounded-[2.5rem] bg-pz-crema p-8 text-center md:p-14">
+        <h2 class="text-[clamp(2rem,5vw,3.4rem)] text-pz-verde">Tu próximo antojo puede ser tu mejor postre</h2>
+        <p class="mx-auto mt-6 max-w-xl font-pz-serif text-xl italic leading-snug">
+          Espero que estas recetas te acompañen en muchos momentos bonitos, que tu casa huela delicioso y que puedas compartir lo que prepares con las personas que quieres.
+        </p>
+        <a :href="checkoutHref" class="btn-pz wiggle mt-10">Quiero empezar hoy →</a>
+        <p class="script mt-10 text-3xl text-pz-coral">Con cariño,</p>
+        <p class="script text-5xl text-pz-verde">María José Ramírez</p>
       </div>
     </section>
 
@@ -510,19 +523,10 @@ const preguntas = [
       </div>
     </section>
 
-    <!-- CIERRE -->
-    <section class="checker px-4 py-20 md:py-28" style="--s: 56px">
-      <div class="mx-auto max-w-3xl rounded-[2.5rem] bg-pz-crema p-8 text-center md:p-14">
-        <h2 class="text-[clamp(2rem,5vw,3.4rem)] text-pz-verde">Tu próximo antojo puede ser tu mejor postre</h2>
-        <p class="mx-auto mt-6 max-w-xl font-pz-serif text-xl italic leading-snug">
-          Espero que estas recetas te acompañen en muchos momentos bonitos, que tu casa huela delicioso y que puedas compartir lo que prepares con las personas que quieres.
-        </p>
-        <a :href="checkoutHref" class="btn-pz wiggle mt-10">Quiero empezar hoy →</a>
-        <p class="script mt-10 text-3xl text-pz-coral">Con cariño,</p>
-        <p class="script text-5xl text-pz-verde">María José Ramírez</p>
-      </div>
-      <p class="mt-10 text-center text-xs text-pz-crema/90 drop-shadow">© {{ new Date().getFullYear() }} María José Ramírez · Pago procesado por Hotmart · <a href="https://www.exchangerate-api.com" class="underline" rel="noopener">Tasas de cambio por Exchange Rate API</a></p>
-    </section>
+    <!-- PIE -->
+    <footer class="bg-pz-lavanda/40 px-4 pb-10 text-center text-xs text-ink/60">
+      © {{ new Date().getFullYear() }} María José Ramírez · Pago procesado por Hotmart · <a href="https://www.exchangerate-api.com" class="underline" rel="noopener">Tasas de cambio por Exchange Rate API</a>
+    </footer>
 
     <!-- Barra fija de compra en celular -->
     <Transition enter-from-class="translate-y-full" leave-to-class="translate-y-full">
