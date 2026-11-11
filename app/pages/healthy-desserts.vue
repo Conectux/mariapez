@@ -5,18 +5,17 @@ definePageMeta({ layout: 'landing' })
 // ⚠️ PENDIENTE: link de Hotmart del ebook en INGLÉS (con su off=...). Mientras esté vacío los botones no llevan al checkout y Google no indexa la página
 const HOTMART_CHECKOUT_URL = ''
 
-// ⚠️ PENDIENTE: imágenes del ebook en inglés. Mientras estén vacías se muestra un recuadro con la descripción
-// Súbelas a public/images/ebook/en/ y escribe la ruta, ej. '/images/ebook/en/cover-book.webp'
+// Imágenes sacadas del PDF del ebook en inglés (public/images/ebook/en/). Si una queda vacía se muestra un recuadro con la descripción
 const imagenes = {
   // Libro en 3D con fondo transparente (como /images/ebook/portada-libro.webp)
-  portada: '',
-  // Imagen al compartir el link (1200×630 o la portada en jpg)
-  og: '/images/ebook/postres/02.jpg',
+  portada: '/images/ebook/en/cover-book.webp',
+  // Imagen al compartir el link
+  og: '/images/ebook/en/cover.jpg',
   paginas: [
-    { src: '', t: 'Every recipe, step by step' },
-    { src: '', t: 'Chapter index' },
-    { src: '', t: 'Measurements and conversions' },
-    { src: '', t: 'How to store each dessert' },
+    { src: '/images/ebook/en/page-recipe.jpg', t: 'Every recipe, step by step' },
+    { src: '/images/ebook/en/page-contents.jpg', t: 'Chapter index' },
+    { src: '/images/ebook/en/page-measurements.jpg', t: 'US cups, °F and °C' },
+    { src: '/images/ebook/en/page-storage.jpg', t: 'How to store each dessert' },
   ],
 }
 
@@ -120,26 +119,26 @@ const paisEn = computed(() => (local.value?.pais ? new Intl.DisplayNames(['en'],
 // Si la API de tasas falla, el servidor manda el precio en USD ya ajustado: en ese caso no hay conversión que mostrar
 const conversion = computed(() => (local.value?.precios.length && local.value.moneda !== 'USD' ? `${usd(precioUsdActual.value)} · Price in your currency (${paisEn.value})` : null))
 
-// ⚠️ Revisa que los títulos coincidan con los del ebook en inglés
+// Títulos tal como aparecen en el índice del ebook en inglés
 const capitulos = [
   {
     n: 1, titulo: 'The cakes that made me fall in love with baking', bg: 'bg-pz-rosa', text: 'text-pz-verde',
-    recetas: ['María Luisa Cake', 'Apple Cinnamon Cake', 'Bruce\'s Chocolate Cake from Matilda', 'Red Velvet Cake', 'Banana Chocolate Cake', 'Carrot Cake with Cream Cheese Frosting', 'Lemon Blueberry Cake', 'Orange Almond Cake'],
+    recetas: ['María Luisa Cake', 'Apple Cinnamon Cake', 'Bruce\'s Chocolate Cake from Matilda', 'Red Velvet Cake', 'Chocolate Banana Bread', 'Carrot Cake with Cream Cheese Frosting', 'Lemon Blueberry Cake', 'Orange Almond Cake'],
   },
   {
     n: 2, titulo: 'Cookies that disappear in minutes', bg: 'bg-pz-durazno', text: 'text-pz-azul-oscuro',
-    recetas: ['New York–Style Chocolate Cookies', 'Flaxseed Honey Cookies', 'Coconut Cookies', 'Peanut Butter Chocolate Cookies', 'Oatmeal Apple Cinnamon Cookies', 'Double Chocolate Cookies'],
+    recetas: ['New York–Style Chocolate Chip Cookies', 'Flaxseed Honey Cookies', 'Coconut Macaroons', 'Peanut Butter Chocolate Chip Cookies', 'Apple Cinnamon Oatmeal Cookies', 'Double Chocolate Cookies'],
   },
   {
     n: 3, titulo: 'Creamy, chilled desserts', bg: 'bg-pz-lavanda', text: 'text-pz-azul-oscuro',
-    recetas: ['Berry Cheesecake', 'Creamy Vanilla Ice Cream', 'Rich Chocolate Ice Cream', 'Chocolate Mousse', 'Vanilla Strawberry Panna Cotta', 'Tiramisu Cups'],
+    recetas: ['Berry Cheesecake', 'Creamy Vanilla Ice Cream', 'Rich Chocolate Ice Cream', 'Chocolate Mousse', 'Vanilla Panna Cotta with Strawberries', 'Tiramisu Cups'],
   },
   {
     n: 4, titulo: 'Desserts to share', bg: 'bg-pz-lima', text: 'text-pz-verde',
-    recetas: ['Apple Cinnamon Crumble', 'Chocolate Brownies', 'Vanilla White Chocolate Blondies', 'Baked Vanilla Donuts', 'Cinnamon Rolls', 'Lemon Blueberry Muffins'],
+    recetas: ['Apple Cinnamon Crumble', 'Chocolate Brownies', 'Vanilla White Chocolate Blondies', 'Baked Vanilla Donuts', 'Cinnamon Rolls', 'Blueberry Lemon Muffins'],
   },
   {
-    n: 5, titulo: 'Little cravings', bg: 'bg-pz-menta', text: 'text-pz-vino',
+    n: 5, titulo: 'Little treats', bg: 'bg-pz-menta', text: 'text-pz-vino',
     recetas: ['Chocolate Hazelnut Truffles', 'Chocolate Cheesecake Bars', 'Lemon Pie Cups', 'Vanilla Tres Leches Cake'],
   },
 ]
@@ -162,15 +161,15 @@ const incluye = [
   { t: '30 recipes tested in my kitchen', d: 'Cakes, cookies, ice cream, cheesecakes, brownies, donuts, truffles… each one illustrated, with ingredients in cups and grams and numbered step-by-step instructions.' },
   { t: '“My secret” and “My tip”', d: 'The tricks I learned by making mistakes, so you don\'t have to: when not to open the oven, how to get clean slices, how to avoid lumps.' },
   { t: 'Small batches', d: '6–7 inch (15–18 cm) pans. Desserts you finish while they\'re fresh, without wasting pricey ingredients.' },
-  { t: 'Measurement and conversion guide', d: 'Cups, tablespoons, milliliters, temperatures and how to use each sweetener so yours turns out just like mine.' },
-  { t: 'The ingredients, explained', d: 'Allulose, erythritol with stevia, almond flour, oats, coconut, flaxseed: what each one does and why it works.' },
+  { t: 'Measurement guide', d: 'Standard US cups and spoons, grams for precision, °F and °C, and how to use each sweetener so yours turns out just like mine.' },
+  { t: 'The ingredients, explained', d: 'Allulose, erythritol with stevia, almond flour, oats, coconut, flaxseed: what each one does, and a shopping guide so you know exactly what to buy.' },
   { t: 'Storage chart', d: 'How many days each dessert keeps and how to store it so it stays delicious.' },
 ]
 
 // Testimonios REALES de compradoras del ebook en español, traducidos (se aclara en la página)
 const testimonios: { nombre: string, ciudad?: string, receta?: string, texto: string, foto?: string }[] = [
   { nombre: 'Laura Marcela Gómez', receta: 'Chocolate Brownies', texto: 'I thought that since they were healthy recipes they\'d be kind of plain haha, but I made the brownies and they were SO good. Even my husband ate them and had no idea they had no added sugar 😂' },
-  { nombre: 'Daniela Giraldo', receta: 'Peanut Butter Chocolate Cookies', texto: 'I loved the book!! Everything is really well explained. I\'m not great at making desserts, but I already made the peanut butter chocolate cookies and they came out delicious. The carrot cake is next 😍' },
+  { nombre: 'Daniela Giraldo', receta: 'Peanut Butter Chocolate Chip Cookies', texto: 'I loved the book!! Everything is really well explained. I\'m not great at making desserts, but I already made the peanut butter chocolate cookies and they came out delicious. The carrot cake is next 😍' },
   { nombre: 'Paola Andrea Castaño', texto: 'I\'m trying to cut back on sugar, and the hardest part for me was giving up desserts. This recipe book came at the perfect time. I\'ve made 3 recipes so far and I\'ve really liked them.' },
   { nombre: 'Carolina Jaramillo', receta: 'Chocolate Cake', texto: 'Yesterday I made the chocolate cake to share with my family and they loved it. My mom even asked me for the recipe haha. The best part is that it\'s moist, not like those healthy cakes that taste like dry bread.' },
   { nombre: 'Natalia Restrepo', receta: 'Cinnamon Rolls', texto: 'At first I wasn\'t sure about buying it, since you can find lots of free recipes online, but honestly I really liked it. The measurements are clear and I don\'t have to search everywhere for what to make. I already made the cinnamon rolls and they were amazing.' },
@@ -186,7 +185,7 @@ const preguntas = [
   { p: 'Can I eat them if I have diabetes or another health condition?', r: 'If you have a health condition or follow a special diet, check with your doctor or nutritionist first. This book doesn\'t replace professional advice.' },
   { p: 'Where can I find the ingredients?', r: 'Allulose, almond flour and oat flour are available at large supermarkets, health food stores and online. In the book I explain what each ingredient does and how to substitute it when possible.' },
   { p: 'Do I need to be an expert baker?', r: 'Not at all. I never went to culinary school or took classes. The recipes have exact measurements, temperatures, times and numbered steps. Many don\'t even need a mixer.' },
-  { p: 'Do some recipes use honey?', r: 'Yes, a couple. I point it out in each recipe and give you an allulose alternative if you want a strictly no-added-sugar version.' },
+  { p: 'Do any recipes use honey?', r: 'Yes, one: the flaxseed honey cookies. I point it out in the recipe and give you an allulose alternative if you want a strictly no-added-sugar version.' },
   { p: 'Is it safe to pay?', r: 'Yes. Payment is processed by Hotmart, one of the largest digital product platforms in Latin America. You\'ll see the payment methods available in your country at checkout.' },
   { p: 'What if I don\'t like it?', r: `You have a ${oferta.garantiaDias}-day guarantee. If the book isn't for you, request a refund through Hotmart and you'll get your money back.` },
 ]
@@ -259,7 +258,7 @@ const preguntas = [
         <div class="relative mx-auto hidden w-full max-w-sm md:block">
           <div class="float">
             <NuxtImg v-if="imagenes.portada" :src="imagenes.portada" alt="Cover of the ebook 30 healthy and delicious dessert recipes" width="412" height="604" format="webp" fetchpriority="high" class="block h-auto w-full drop-shadow-[0_24px_30px_rgba(0,0,0,0.3)]" />
-            <PhotoSlot v-else alt="English ebook cover (3D book, transparent background)" aspect="aspect-[412/604]" class="rounded-2xl" />
+            <PhotoSlot v-else alt="English ebook cover" aspect="aspect-[412/604]" class="rounded-2xl" />
           </div>
           <EbookStarburst class="absolute -top-6 -right-2 w-28 bg-pz-coral text-white md:-right-8 md:w-32">
             <span class="font-pz-display text-sm leading-tight uppercase">74<br>illustrated<br>pages</span>
