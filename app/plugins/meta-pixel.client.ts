@@ -1,5 +1,6 @@
-// Pixel de Meta: PageView en cada página (también al navegar sin recargar).
-// La landing en inglés (/healthy-desserts) usa su propio pixel; el resto del sitio, el principal.
+// Pixel de Meta en el navegador: PageView al navegar sin recargar.
+// El código base y el primer PageView vienen en el HTML del servidor (server/plugins/meta-pixel.ts).
+// Cada página usa su propio pixel (ver shared/utils/pixel.ts).
 // El InitiateCheckout y el Purchase los dispara Hotmart desde su checkout, configurando el mismo pixel en cada producto.
 declare global {
   interface Window {
@@ -9,39 +10,46 @@ declare global {
 }
 
 export default defineNuxtPlugin(() => {
-  const { metaPixelId, metaPixelIdEn } = useRuntimeConfig().public
-  if ((!metaPixelId && !metaPixelIdEn) || window.fbq) return
+  const ids = useRuntimeConfig().public
+  if (!ids.metaPixelId && !ids.metaPixelIdEn) return
 
-  const pixelDeRuta = (path: string) => (path.startsWith('/healthy-desserts') ? metaPixelIdEn : metaPixelId)
+  const iniciados = new Set<string>()
+  const pixelInicial = pixelDeRuta(window.location.pathname, ids)
 
-  const fbq: NonNullable<Window['fbq']> = function (...args: unknown[]) {
-    if (fbq.callMethod) fbq.callMethod(...args)
-    else fbq.queue!.push(args)
+  if (window.fbq) {
+    // El HTML del servidor ya inició el pixel de esta página y envió su PageView
+    if (pixelInicial) iniciados.add(pixelInicial)
   }
-  fbq.push = fbq
-  fbq.loaded = true
-  fbq.version = '2.0'
-  fbq.queue = []
-  window.fbq = fbq
-  window._fbq = fbq
+  else {
+    // Respaldo por si la página llega sin el código del servidor
+    const fbq: NonNullable<Window['fbq']> = function (...args: unknown[]) {
+      if (fbq.callMethod) fbq.callMethod(...args)
+      else fbq.queue!.push(args)
+    }
+    fbq.push = fbq
+    fbq.loaded = true
+    fbq.version = '2.0'
+    fbq.queue = []
+    window.fbq = fbq
+    window._fbq = fbq
 
-  useHead({
-    script: [{ src: 'https://connect.facebook.net/en_US/fbevents.js', async: true }],
-  })
+    useHead({
+      script: [{ src: 'https://connect.facebook.net/en_US/fbevents.js', async: true }],
+    })
+  }
 
   // trackSingle: cada PageView va solo al pixel de esa página, aunque se hayan iniciado los dos al navegar
-  const iniciados = new Set<string>()
   const pageView = (path: string) => {
-    const id = pixelDeRuta(path)
+    const id = pixelDeRuta(path, ids)
     if (!id) return
     if (!iniciados.has(id)) {
-      fbq('init', id)
+      window.fbq!('init', id)
       iniciados.add(id)
     }
-    fbq('trackSingle', id, 'PageView')
+    window.fbq!('trackSingle', id, 'PageView')
   }
 
-  pageView(window.location.pathname)
+  if (!iniciados.size) pageView(window.location.pathname)
 
   // Evita contar dos veces la primera página
   let ultimaRuta = window.location.pathname

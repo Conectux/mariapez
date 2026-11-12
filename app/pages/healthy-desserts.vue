@@ -74,7 +74,7 @@ const { metaPixelIdEn } = useRuntimeConfig().public
 onMounted(() => {
   if (oferta.checkoutUrl) {
     const url = new URL(oferta.checkoutUrl)
-    new URLSearchParams(window.location.search).forEach((v, k) => url.searchParams.set(k, v))
+    new URLSearchParams(window.location.search).forEach((v, k) => { if (!url.searchParams.has(k)) url.searchParams.set(k, v) })
     checkoutHref.value = url.toString()
   }
 
