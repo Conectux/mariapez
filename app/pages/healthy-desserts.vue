@@ -2,8 +2,9 @@
 // Versión en inglés de /postres-saludables, para el ebook en inglés
 definePageMeta({ layout: 'landing' })
 
-// ⚠️ PENDIENTE: link de Hotmart del ebook en INGLÉS (con su off=...). Mientras esté vacío los botones no llevan al checkout y Google no indexa la página
-const HOTMART_CHECKOUT_URL = ''
+// Link único de compra del ebook en INGLÉS: lo usan todos los botones (con los UTM de la visita agregados en onMounted)
+// Si se deja vacío, los botones no llevan al checkout y Google no indexa la página
+const HOTMART_CHECKOUT_URL = 'https://pay.hotmart.com/D108455461B?checkoutMode=10'
 
 // Imágenes sacadas del PDF del ebook en inglés (public/images/ebook/en/). Si una queda vacía se muestra un recuadro con la descripción
 const imagenes = {
