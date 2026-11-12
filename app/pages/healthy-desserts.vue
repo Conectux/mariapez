@@ -271,7 +271,7 @@ const preguntas = [
     </section>
 
     <!-- DOLORES -->
-    <section class="bg-pz-verde px-4 py-20 text-pz-crema md:py-28">
+    <section class="bg-pz-verde px-4 py-12 text-pz-crema md:py-28">
       <div class="mx-auto max-w-6xl">
         <p class="script text-center text-4xl text-pz-rosa">Sound familiar?</p>
         <h2 class="mx-auto mt-2 max-w-4xl text-center text-[clamp(2rem,5vw,3.6rem)]">
@@ -291,7 +291,7 @@ const preguntas = [
     </section>
 
     <!-- HISTORIA -->
-    <section class="px-4 py-20 md:py-28">
+    <section class="px-4 py-12 md:py-28">
       <div class="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-[0.9fr_1.1fr] md:gap-16">
         <div class="relative">
           <div class="stamp rotate-[-2deg] bg-pz-coral">
@@ -317,7 +317,7 @@ const preguntas = [
     </section>
 
     <!-- BENEFICIOS -->
-    <section class="bg-pz-rosa px-4 py-20 md:py-28">
+    <section class="bg-pz-rosa px-4 py-12 md:py-28">
       <div class="mx-auto max-w-6xl">
         <h2 class="mx-auto max-w-3xl text-center text-[clamp(2rem,5vw,3.4rem)] text-pz-verde">What makes this book different</h2>
         <div class="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -333,7 +333,7 @@ const preguntas = [
     </section>
 
     <!-- ANTES / DESPUÉS -->
-    <section class="px-4 py-20 md:py-28">
+    <section class="px-4 py-12 md:py-28">
       <div class="mx-auto grid max-w-5xl gap-6 md:grid-cols-2">
         <div class="rounded-3xl border-2 border-dashed border-ink/25 p-8">
           <p class="script text-3xl text-ink/50">Without this book</p>
@@ -358,8 +358,8 @@ const preguntas = [
       </div>
     </section>
 
-    <!-- PARA QUIÉN -->
-    <section class="px-4 py-20 md:py-28">
+    <!-- PARA QUIÉN (sin espacio arriba: viene justo después de otra sección del mismo fondo) -->
+    <section class="px-4 pb-12 md:pb-28">
       <div class="mx-auto grid max-w-5xl gap-6 md:grid-cols-2">
         <div class="rounded-3xl bg-pz-lima/40 p-8">
           <h3 class="text-xl text-pz-verde">This book is for you if…</h3>
@@ -384,7 +384,7 @@ const preguntas = [
     </section>
 
     <!-- QUÉ INCLUYE -->
-    <section class="checker px-4 py-20 md:py-28" style="--a: var(--color-pz-azul); --b: var(--color-pz-durazno); --s: 48px">
+    <section class="checker px-4 py-12 md:py-28" style="--a: var(--color-pz-azul); --b: var(--color-pz-durazno); --s: 48px">
       <div class="mx-auto max-w-6xl rounded-[2.5rem] bg-pz-crema p-6 md:p-14">
         <p class="script text-center text-4xl text-pz-coral">Everything you'll make</p>
         <h2 class="mt-2 text-center text-[clamp(2rem,5vw,3.6rem)] text-pz-azul-oscuro">30 recipes in 5 chapters</h2>
@@ -407,7 +407,7 @@ const preguntas = [
     </section>
 
     <!-- POR DENTRO -->
-    <section class="px-4 py-20 md:py-28">
+    <section class="px-4 py-12 md:py-28">
       <div class="mx-auto max-w-6xl">
         <p class="script text-center text-4xl text-pz-coral">Take a look inside</p>
         <h2 class="mx-auto mt-2 max-w-3xl text-center text-[clamp(2rem,5vw,3.4rem)] text-pz-verde">So pretty you'll want to print it</h2>
@@ -422,7 +422,7 @@ const preguntas = [
     </section>
 
     <!-- TESTIMONIOS -->
-    <section v-if="testimonios.length" class="checker px-4 py-20 md:py-28" style="--a: var(--color-pz-lima); --b: var(--color-pz-verde); --s: 48px">
+    <section v-if="testimonios.length" class="checker px-4 py-12 md:py-28" style="--a: var(--color-pz-lima); --b: var(--color-pz-verde); --s: 48px">
       <div class="mx-auto max-w-6xl">
         <div class="mx-auto max-w-2xl rounded-[2rem] bg-pz-crema px-6 py-8 text-center">
           <p class="script text-4xl text-pz-coral">“What a delicious cake!”</p>
@@ -449,7 +449,7 @@ const preguntas = [
     </section>
 
     <!-- OFERTA -->
-    <section id="buy" class="checker px-4 py-20 md:py-28" style="--a: var(--color-pz-coral); --b: var(--color-pz-crema); --s: 48px">
+    <section id="buy" class="checker px-4 py-12 md:py-28" style="--a: var(--color-pz-coral); --b: var(--color-pz-crema); --s: 48px">
       <div class="mx-auto max-w-2xl rounded-[2.5rem] bg-pz-crema p-6 text-center shadow-[0_14px_0_rgba(0,0,0,0.15)] md:p-12">
         <p class="script text-4xl text-pz-coral">With lots of love, from my kitchen</p>
         <h2 class="mt-2 text-[clamp(1.8rem,4.5vw,3rem)] text-pz-verde">30 healthy and delicious dessert recipes</h2>
@@ -473,8 +473,8 @@ const preguntas = [
         <p class="mt-4 text-sm text-ink/60">🔒 Secure payment with Hotmart · Access sent to your email</p>
 
         <div class="mt-10 flex flex-col items-center gap-5 rounded-3xl bg-pz-rosa-claro p-6 text-center sm:flex-row sm:text-left">
-          <EbookStarburst class="w-24 shrink-0 bg-pz-verde text-pz-crema">
-            <span class="font-pz-display text-sm leading-tight uppercase">{{ oferta.garantiaDias }}-day<br>money-back<br>guarantee</span>
+          <EbookStarburst class="w-28 shrink-0 bg-pz-verde text-pz-crema">
+            <span class="font-pz-display text-[0.7rem] leading-tight uppercase">{{ oferta.garantiaDias }}-day<br>money-back<br>guarantee</span>
           </EbookStarburst>
           <p class="text-sm leading-relaxed">
             <strong>Try it risk-free.</strong> If within {{ oferta.garantiaDias }} days you feel the book isn't for you, request a refund through Hotmart and get 100% of your money back.
@@ -494,7 +494,7 @@ const preguntas = [
     </section>
 
     <!-- CIERRE -->
-    <section class="checker px-4 py-20 md:py-28" style="--s: 56px">
+    <section class="checker px-4 py-12 md:py-28" style="--s: 56px">
       <div class="mx-auto max-w-3xl rounded-[2.5rem] bg-pz-crema p-8 text-center md:p-14">
         <h2 class="text-[clamp(2rem,5vw,3.4rem)] text-pz-verde">Your next craving could be your best dessert</h2>
         <p class="mx-auto mt-6 max-w-xl font-pz-serif text-xl italic leading-snug">
@@ -507,7 +507,7 @@ const preguntas = [
     </section>
 
     <!-- FAQ -->
-    <section class="bg-pz-lavanda/40 px-4 py-20 md:py-28">
+    <section class="bg-pz-lavanda/40 px-4 py-12 md:py-28">
       <div class="mx-auto max-w-3xl">
         <p class="script text-center text-4xl text-pz-coral">Frequently asked questions</p>
         <h2 class="mt-2 text-center text-[clamp(2rem,5vw,3rem)] text-pz-azul-oscuro">Before you ask</h2>
