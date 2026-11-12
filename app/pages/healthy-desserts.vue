@@ -22,9 +22,9 @@ const imagenes = {
 // ⚠️ Configura aquí la oferta antes de publicar
 const oferta = {
   checkoutUrl: HOTMART_CHECKOUT_URL,
-  precioUsd: 9.97,
+  precioUsd: 14,
   // Precio después del lanzamiento: debe ser real, porque se muestra tachado
-  precioRegularUsd: 19.97,
+  precioRegularUsd: 26,
   // Fecha real en que termina el precio de lanzamiento (hora de Colombia)
   finLanzamiento: '2026-12-10T23:59:59-05:00',
   garantiaDias: 7,
@@ -95,8 +95,8 @@ onBeforeUnmount(() => {
 })
 
 // Esta página muestra siempre el precio en dólares (sin conversión a moneda local)
-// Todos los precios terminan en el código de moneda ("9.97 USD")
-const usd = (n: number) => `${n.toFixed(2)} USD`
+// Todos los precios terminan en el código de moneda ("14 USD", "9.97 USD"); los enteros van sin decimales
+const usd = (n: number) => `${Number.isInteger(n) ? n : n.toFixed(2)} USD`
 const precioUsdActual = computed(() => (enLanzamiento.value ? oferta.precioUsd : oferta.precioRegularUsd))
 const precioActual = computed(() => usd(precioUsdActual.value))
 const precioRegular = computed(() => usd(oferta.precioRegularUsd))
