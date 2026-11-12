@@ -94,30 +94,12 @@ onBeforeUnmount(() => {
   window.removeEventListener('scroll', onScroll)
 })
 
-// Precio en la moneda local según el país del visitante (Vercel lo detecta por IP; ?pais=MX para probar)
-const route = useRoute()
-const headers = useRequestHeaders(['x-vercel-ip-country'])
-const { data: local } = await useFetch('/api/precio', {
-  key: 'precio-local-en',
-  query: {
-    pais: (route.query.pais as string) || headers['x-vercel-ip-country'] || '',
-    usd: `${oferta.precioUsd},${oferta.precioRegularUsd}`,
-  },
-})
-
-// Todos los precios terminan en el código de moneda ("$186 MXN", "9.97 USD")
+// Esta página muestra siempre el precio en dólares (sin conversión a moneda local)
+// Todos los precios terminan en el código de moneda ("9.97 USD")
 const usd = (n: number) => `${n.toFixed(2)} USD`
-const enMonedaLocal = (i: number) => {
-  const precio = local.value?.precios[i]
-  return precio ? `${precio} ${local.value!.moneda}` : null
-}
 const precioUsdActual = computed(() => (enLanzamiento.value ? oferta.precioUsd : oferta.precioRegularUsd))
-const precioActual = computed(() => enMonedaLocal(enLanzamiento.value ? 0 : 1) ?? usd(precioUsdActual.value))
-const precioRegular = computed(() => enMonedaLocal(1) ?? usd(oferta.precioRegularUsd))
-// El API devuelve el nombre del país en español: aquí se muestra en inglés a partir del código
-const paisEn = computed(() => (local.value?.pais ? new Intl.DisplayNames(['en'], { type: 'region' }).of(local.value.pais) : ''))
-// Si la API de tasas falla, el servidor manda el precio en USD ya ajustado: en ese caso no hay conversión que mostrar
-const conversion = computed(() => (local.value?.precios.length && local.value.moneda !== 'USD' ? `${usd(precioUsdActual.value)} · Price in your currency (${paisEn.value})` : null))
+const precioActual = computed(() => usd(precioUsdActual.value))
+const precioRegular = computed(() => usd(oferta.precioRegularUsd))
 
 // Títulos tal como aparecen en el índice del ebook en inglés
 const capitulos = [
@@ -247,9 +229,7 @@ const preguntas = [
                   {{ precioActual.slice(0, -4) }}<span class="text-[0.45em]"> {{ precioActual.slice(-3) }}</span>
                 </strong>
               </p>
-              <p class="mt-1 text-sm text-ink/70">
-                <template v-if="conversion">{{ usd(precioUsdActual) }} · Price in your currency · </template>One-time payment · Instant access
-              </p>
+              <p class="mt-1 text-sm text-ink/70">One-time payment · Instant access</p>
               <p class="mt-1 text-xs text-ink/50">Hotmart confirms the exact amount at checkout.</p>
             </div>
           </div>
@@ -485,8 +465,8 @@ const preguntas = [
           <p class="font-pz-display text-[clamp(2.8rem,12vw,6.5rem)] leading-none whitespace-nowrap text-pz-coral">
             {{ precioActual.slice(0, -4) }}<span class="text-[0.4em]"> {{ precioActual.slice(-3) }}</span>
           </p>
-          <p class="text-sm text-ink/60">{{ conversion ?? 'One-time payment' }}</p>
-          <p class="mt-1 text-xs text-ink/50"><template v-if="conversion">One-time payment. </template>Hotmart confirms the exact amount at checkout.</p>
+          <p class="text-sm text-ink/60">One-time payment</p>
+          <p class="mt-1 text-xs text-ink/50">Hotmart confirms the exact amount at checkout.</p>
         </div>
 
         <a :href="checkoutHref" class="btn-pz wiggle mt-8 w-full">Yes, I want my 30 recipes →</a>
@@ -545,7 +525,7 @@ const preguntas = [
 
     <!-- PIE -->
     <footer class="bg-pz-lavanda/40 px-4 pb-10 text-center text-xs text-ink/60">
-      © {{ new Date().getFullYear() }} María José Ramírez · Payment processed by Hotmart · <a href="https://www.exchangerate-api.com" class="underline" rel="noopener">Exchange rates by Exchange Rate API</a>
+      © {{ new Date().getFullYear() }} María José Ramírez · Payment processed by Hotmart
     </footer>
 
     <!-- Barra fija de compra en celular -->
