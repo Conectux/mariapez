@@ -11,6 +11,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       metaPixelId: '1272281247944176',
+      // Pixel propio de la landing en inglés (/healthy-desserts)
+      metaPixelIdEn: '2770073723390521',
     },
   },
 

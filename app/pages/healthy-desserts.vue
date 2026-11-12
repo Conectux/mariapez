@@ -69,6 +69,8 @@ function onScroll() {
   mostrarBarra.value = window.scrollY > 700
 }
 
+const { metaPixelIdEn } = useRuntimeConfig().public
+
 onMounted(() => {
   if (oferta.checkoutUrl) {
     const url = new URL(oferta.checkoutUrl)
@@ -82,7 +84,8 @@ onMounted(() => {
 
   window.addEventListener('scroll', onScroll, { passive: true })
 
-  window.fbq?.('track', 'ViewContent', {
+  // Solo al pixel de esta landing (ver plugins/meta-pixel.client.ts)
+  window.fbq?.('trackSingle', metaPixelIdEn, 'ViewContent', {
     content_name: '30 healthy dessert recipes',
     content_type: 'product',
     value: precioUsdActual.value,
