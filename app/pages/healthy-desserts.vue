@@ -35,7 +35,7 @@ useSeoMeta({
   title: 'Healthy desserts that don\'t taste healthy',
   description: '30 desserts with no added sugar, no wheat flour and no oil, tested in María José\'s kitchen. PDF ebook with instant access.',
   ogTitle: 'Healthy desserts that don\'t taste healthy',
-  ogDescription: '30 cakes, cookies, brownies and ice creams with no added sugar, no wheat flour and no oil. Instant-download ebook.',
+  ogDescription: '30 recipes for cakes, cookies, brownies and ice cream with no added sugar, no wheat flour and no oil. Instant-download ebook.',
   ogImage: imagenes.og,
   twitterCard: 'summary_large_image',
   robots: HOTMART_CHECKOUT_URL ? undefined : 'noindex, nofollow',
@@ -198,7 +198,7 @@ const preguntas = [
           </h1>
           <div class="mt-4 flex items-center gap-4 md:mt-6 md:block">
             <p class="max-w-xl font-pz-serif text-base italic leading-snug md:text-2xl">
-              <strong class="font-semibold not-italic">30 cakes, cookies, brownies and ice creams with no added sugar, no wheat flour and no oil</strong>, so good your family won't notice the swap. Instant-download ebook.
+              <strong class="font-semibold not-italic">30 recipes for cakes, cookies, brownies and ice cream with no added sugar, no wheat flour and no oil</strong>, so good your family won't notice the swap. Instant-download ebook.
             </p>
             <!-- Portada en la primera pantalla del celular (en escritorio se ve la grande de la derecha). Misma URL que la grande: se descarga una sola vez -->
             <NuxtImg v-if="imagenes.portada" :src="imagenes.portada" alt="Cover of the ebook 30 healthy and delicious dessert recipes" width="412" height="604" format="webp" loading="eager" fetchpriority="high" preload class="block h-auto w-28 shrink-0 drop-shadow-[0_10px_12px_rgba(0,0,0,0.25)] md:hidden" />
