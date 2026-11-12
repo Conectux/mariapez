@@ -32,9 +32,9 @@ const oferta = {
 
 useHead({ htmlAttrs: { lang: 'en' } })
 useSeoMeta({
-  title: 'Healthy desserts that don\'t taste healthy',
+  title: 'Your favorite desserts, made healthier',
   description: '30 desserts with no added sugar, no wheat flour and no oil, tested in María José\'s kitchen. PDF ebook with instant access.',
-  ogTitle: 'Healthy desserts that don\'t taste healthy',
+  ogTitle: 'Your favorite desserts, made healthier. Same taste you love.',
   ogDescription: '30 recipes for cakes, cookies, brownies and ice cream with no added sugar, no wheat flour and no oil. Instant-download ebook.',
   ogImage: imagenes.og,
   twitterCard: 'summary_large_image',
@@ -193,8 +193,8 @@ const preguntas = [
       <div class="mx-auto grid max-w-6xl items-center gap-10 rounded-[2.5rem] bg-pz-crema p-5 shadow-[0_12px_0_rgba(0,0,0,0.12)] md:grid-cols-[1.1fr_0.9fr] md:p-12">
         <div>
           <p class="script text-[1.7rem] text-pz-coral md:text-4xl">For people who love dessert</p>
-          <h1 class="mt-2 text-[clamp(2.1rem,5vw,3.6rem)] text-pz-verde md:mt-3">
-            Healthy desserts that don't taste healthy
+          <h1 class="mt-2 text-[clamp(1.85rem,4.5vw,3.2rem)] text-pz-verde md:mt-3">
+            Your favorite desserts, made healthier. <span class="text-pz-coral">Same taste you love.</span>
           </h1>
           <div class="mt-4 flex items-center gap-4 md:mt-6 md:block">
             <p class="max-w-xl font-pz-serif text-base italic leading-snug md:text-2xl">
