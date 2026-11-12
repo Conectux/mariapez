@@ -32,10 +32,10 @@ const oferta = {
 
 useHead({ htmlAttrs: { lang: 'en' } })
 useSeoMeta({
-  title: '30 dessert recipes with no added sugar',
+  title: 'Healthy desserts that don\'t taste healthy',
   description: '30 desserts with no added sugar, no wheat flour and no oil, tested in María José\'s kitchen. PDF ebook with instant access.',
-  ogTitle: '30 dessert recipes with no added sugar, no wheat flour and no oil',
-  ogDescription: 'So you\'ll say: “What a delicious cake!” PDF ebook with instant access.',
+  ogTitle: 'Healthy desserts that don\'t taste healthy',
+  ogDescription: '30 cakes, cookies, brownies and ice creams with no added sugar, no wheat flour and no oil. Instant-download ebook.',
   ogImage: imagenes.og,
   twitterCard: 'summary_large_image',
   robots: HOTMART_CHECKOUT_URL ? undefined : 'noindex, nofollow',
@@ -192,13 +192,13 @@ const preguntas = [
     <section class="checker relative px-4 pt-5 pb-20 md:pt-16 md:pb-28" style="--s: 56px">
       <div class="mx-auto grid max-w-6xl items-center gap-10 rounded-[2.5rem] bg-pz-crema p-5 shadow-[0_12px_0_rgba(0,0,0,0.12)] md:grid-cols-[1.1fr_0.9fr] md:p-12">
         <div>
-          <p class="script text-[1.7rem] text-pz-coral md:text-4xl">Hi, I'm María José, and I want you to say…</p>
-          <h1 class="mt-2 text-[clamp(2.4rem,6.5vw,4.6rem)] text-pz-verde md:mt-3">
-            “What a delicious cake!”
+          <p class="script text-[1.7rem] text-pz-coral md:text-4xl">For people who love dessert</p>
+          <h1 class="mt-2 text-[clamp(2.1rem,5vw,3.6rem)] text-pz-verde md:mt-3">
+            Healthy desserts that don't taste healthy
           </h1>
           <div class="mt-4 flex items-center gap-4 md:mt-6 md:block">
             <p class="max-w-xl font-pz-serif text-base italic leading-snug md:text-2xl">
-              Not “it's good… for a healthy dessert.” <strong class="font-semibold not-italic">30 desserts with no added sugar, no wheat flour and no oil</strong> that taste like they came from a real bakery.
+              <strong class="font-semibold not-italic">30 cakes, cookies, brownies and ice creams with no added sugar, no wheat flour and no oil</strong>, so good your family won't notice the swap. Instant-download ebook.
             </p>
             <!-- Portada en la primera pantalla del celular (en escritorio se ve la grande de la derecha). Misma URL que la grande: se descarga una sola vez -->
             <NuxtImg v-if="imagenes.portada" :src="imagenes.portada" alt="Cover of the ebook 30 healthy and delicious dessert recipes" width="412" height="604" format="webp" loading="eager" fetchpriority="high" preload class="block h-auto w-28 shrink-0 drop-shadow-[0_10px_12px_rgba(0,0,0,0.25)] md:hidden" />
